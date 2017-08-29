@@ -1,5 +1,6 @@
 import com.lukaklacar.binaryrepository.example.Student;
 import com.lukaklacar.binaryrepository.example.Subject;
+import com.lukaklacar.binaryrepository.query.Query;
 import com.lukaklacar.binaryrepository.repository.GenericRepository;
 import com.lukaklacar.binaryrepository.settings.BinaryRepositorySettings;
 import org.junit.Before;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class GenericRepositoryTest {
 
@@ -43,6 +45,13 @@ public class GenericRepositoryTest {
         assertEquals(firstStudent.getLastName(), "Klacar");
         assertEquals(firstStudent.getSubjects().get(0).getName(), "Programming");
 
+        List<Student> students1 = repository.find(new Query<Student>() {
+            @Override
+            public boolean isValid(Student model) {
+                return model.getFirstName().startsWith("L");
+            }
+        });
 
+        assertEquals(students1.get(0).getFirstName(), "Luka");
     }
 }
