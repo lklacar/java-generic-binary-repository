@@ -13,16 +13,12 @@ import static org.junit.Assert.assertEquals;
 
 public class GenericRepositoryTest {
 
-
     private BinaryRepositorySettings settings;
 
     @Before
     public void setup() {
         settings = BinaryRepositorySettings.builder().dataLocation("test").build();
-    }
 
-    @Test
-    public void testRepository() {
         // Clear test directory
         File index = new File("test");
         String[] entries = index.list();
@@ -30,8 +26,10 @@ public class GenericRepositoryTest {
             File currentFile = new File(index.getPath(), s);
             currentFile.delete();
         }
+    }
 
-
+    @Test
+    public void testRepository() {
         Subject subject = new Subject("Programming");
         Student student = new Student("Luka", "Klacar", new CopyOnWriteArrayList<>(new Subject[]{subject}));
 
